@@ -14,6 +14,8 @@ def main():
 	hmmModel.learnModel(trainFile)
 	viterbiAlgorithm = ViterbiAlgorithm(hmmModel)
 	viterbiAlgorithm.bestPath(testFile)
+	forwardBackward = ForwardBackward(hmmModel)
+	forwardBackward.totalPath(testFile)
 
 class HmmModel:
 
@@ -196,8 +198,91 @@ class ViterbiAlgorithm:
 		print "Tagging accuracy (Viterbi decoding): %f   (Known: %f  Novel: %f )" % (100 * float(countNovelCorrect+countKnownCorrect)/(countKnown+countNovel), float(countKnownCorrect)/countKnown, novelRate)
 		print "Perplexity per viertibi-tagged test word: %f" % (math.e ** (-1 * perplex / (len(self.ob)-1)))
 
+class ForwardBackward:
+	def __init__(self, HmmModel):
+		self.HmmModel = HmmModel
+		self.ob = []
+		self.trueState = []
+		self.alpha = collections.defaultdict(lambda:float("-inf"))
+		self.beta = collections.defaultdict(lambda:float("-inf"))
+		self.backpointer = {}
+
+	def totalPath(self, filename):
+		# load the test data
+		infile = file(filename, "r")
+		for line in infile:
+			(emission, state) = line.rstrip().split("/")
+			self.ob.append(emission)
+			self.trueState.append(state)
+
+		# compute the alpha values
+		self.alpha["### 0"] = 0
+		for i in range(1,len(self.ob)-1):
+			for state in self.HmmModel.dict_e(self.ob[i]):
+				for oldstate in self.HmmModel.dict_e(self.ob[i-1]):
+					lp = log(self.HmmModel.Pss(oldstate,state)) + log(self.HmmModel.Pse(state,self.ob[i]))
+					# actually alpha += p, but since alpha stores the log probability, we should have log(alpha) = log(alpha+p) = log(expalpha + explp) = logadd(lalpha+lp)
+					lmu = self.alpha[oldstate+' '+str(i-1)] + lp
+					# print "its in the %d th word of alpha lmu is %f and the value of alpha before update is %f " %(i,lmu, self.alpha[state+' '+str(i)])
+					self.alpha[state+' '+str(i)] = logadd(self.alpha[state+' '+str(i)], lmu)
+					# print "its in the %d th word of alpha lmu is %f and the value of alpha after update is %f " %(i,lmu, self.alpha[state+' '+str(i)])
 
 
+		# then we compute the beta values
+		self.beta["###"+' '+str(len(self.ob)-1)] = 0
+		for i in range(len(self.ob)-1,1,-1):
+			for state in self.HmmModel.dict_e(self.ob[i]):
+				for oldstate in self.HmmModel.dict_e(self.ob[i-1]):
+					lp = log(self.HmmModel.Pss(oldstate,state)) + log(self.HmmModel.Pse(oldstate,self.ob[i-1]))
+					lmu = self.beta[state+' '+str(i)] + lp
+					# implement the logadd method
+					self.beta[oldstate+' '+str(i-1)] = logadd(self.beta[oldstate+' '+str(i-1)], lmu)
+
+		# print self.alpha
+		# print self.beta
+
+		# find out the best tag
+		countNovel = 0
+		countNovelCorrect = 0
+		countKnown = 0
+		countKnownCorrect = 0
+		for i in range(1, len(self.ob)):
+			# skip all ### tag/word
+			if self.trueState[i] == "###":
+				continue
+			currentTag = ""
+			bestTagValue = float("-inf")
+			for possibleTag in self.HmmModel.dict_e(self.ob[i]):
+				if self.alpha[possibleTag+' '+str(i)]+self.beta[possibleTag+' '+str(i)] > bestTagValue:
+					bestTagValue = self.alpha[possibleTag+' '+str(i)]+self.beta[possibleTag+' '+str(i)]
+					currentTag = possibleTag
+			# update counts
+			# print "My guess is %s and the true tag is %s" %(currentTag, self.trueState[i])
+			if self.ob[i] in self.HmmModel.types_e:
+				countKnown += 1
+				if currentTag == self.trueState[i]:
+					countKnownCorrect += 1
+			else:
+				countNovel += 1
+				if currentTag == self.trueState[i]:
+					countNovelCorrect += 1
+		if countNovel == 0:
+			novelRate = 1
+		else:
+			novelRate = float(countNovelCorrect)/countNovel
+		print "Tagging accuracy (Posterior decoding): %f   (Known: %f  Novel: %f )" % (100 * float(countNovelCorrect+countKnownCorrect)/(countKnown+countNovel), float(countKnownCorrect)/countKnown, novelRate)
+
+
+
+
+
+
+
+def logadd(x,y):
+	if x < y:
+		return y + math.log1p(math.exp(x-y))
+	else:
+		return x + math.log1p(math.exp(y-x))
 
 
 

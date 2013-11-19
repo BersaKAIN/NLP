@@ -2,10 +2,12 @@
 
 import math
 import hmm
+import hmm_fb
 from sets import Set
 hmmModel = hmm.HmmModel()
 hmmModel.learnModel("./data/entrain")
 viterbiAlgorithm = hmm.ViterbiAlgorithm(hmmModel)
+forwardBackward = hmm_fb.ForwardBackward(hmmModel)
 
 # print hmmModel.Pse("H","3d")
 # print hmmModel.count_s
@@ -13,7 +15,4 @@ viterbiAlgorithm = hmm.ViterbiAlgorithm(hmmModel)
 # print hmmModel.Pss("###","H")
 
 
-a = Set()
-a.add("b")
-a.add(5)
-print a 
+print forwardBackward.alpha["fdfsd"]

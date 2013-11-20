@@ -1,0 +1,6 @@
+#!/usr/local/bin/perl -w
+$train = $ARGV[0];
+$test = $ARGV[1];
+$raw = $ARGV[2];
+
+system("python hmm_emt.py $train $test $raw");

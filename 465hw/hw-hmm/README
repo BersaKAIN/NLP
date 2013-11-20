@@ -3,15 +3,68 @@
 		i. The new probability for day 1 to be hot in the initial construction is 0.491.
 		p(HHH,133) = 0.5*0.8*0.8*0.1*0.7*0.7 = 0.001568
 		p(CHH,133) = 0.5*0.1*0.8*0.7*0.7*0.7 = 0.001372
-		Then we shall compute p(HHH|133) = p(HHH,133)/p(133) = 
+		Taking the first day being only 1 icecream day, we have a better clue that the first day is more cold. So the final result of the probablity of the first day being H decreased.
 
 		ii. Before the change, the day 2 hot probability is 0.977 after the change the probability is 0.918. Cell K28 is denoting this.
+
 		iii. After 10 iterations the before probability is 1 and 1, the after probability is 0 and 0.577.
 
 	(b)
 		i. p(1=H) immedietly go down to 0. But the rest of the graph seems to be unaffected. 
+
 		ii. After 10 iterations, it drags the first 3 days down, but the change is merely observable.
+
 		iii. I have to say it is still 0, during all 10 iterations, p(1|H) doesn't change, but the emission probability does change, from initially p(2|H) = 0.3 and p(2|H) = 0/7 to almost equal. 
 
-	(c) 
-		
+	(c) i. The last alpha state will have the same probability of the whole sentence.
+	
+		ii. A H constituent here means a node in the trelli, its sibling is its emission and its children is the following state and emission. So p(H -> 1 C) will be p(C|H)*p(1|C) = 0.07. p(e|H) = 0.1. One possible reason we prefer the latter one is that it has less cfg rules, especially when we have more than two states.
+
+2.
+	See the code in hmm.py, to run the result:
+	perl vtag ./data/entrain ./data/entest
+
+3.  Together with 4 and 5, the answer shall be in hmm_fb.py.
+
+4.  Same as 3
+
+5.	Here is the result:
+	Tagging accuracy (Viterbi decoding): 94.158420   (Known: 0.968683  Novel: 0.660816 )
+	Perplexity per viertibi-tagged test word: 960.425684
+	Tagging accuracy (Posterior decoding): 93.928765   (Known: 0.965981  Novel: 0.662713 )
+
+	Notes on how did I implemented this:
+	(a) Tag dictionary: for every (tag word) pair, I add tag to the set of dict[word], so it maintains a set of all seen possible tags.
+	(b) One count smoothing: I used 
+
+6.	
+	Result:
+		Tagging accuracy (Viterbi decoding): 93.799762   (Known: 0.965223  Novel: 0.656461 Seen: 0.629117)
+		Perplexity per viertibi-tagged test word: 1272.261772
+		Iteration 1:  Perplexity per untagged raw word:   1092.489763
+		Tagging accuracy (Viterbi decoding): 93.776883   (Known: 0.965173  Novel: 0.654385 Seen: 0.697375)
+		Perplexity per viertibi-tagged test word: 1044.292247
+		Iteration 1:  Perplexity per untagged raw word:   612.515609
+		Tagging accuracy (Viterbi decoding): 93.653336   (Known: 0.964370  Novel: 0.648677 Seen: 0.680668)
+		Perplexity per viertibi-tagged test word: 1030.016465
+		Iteration 1:  Perplexity per untagged raw word:   588.581989
+
+	Notice that even when we are only trained on the train set (in the first iteration), we are counting all words from both the train set and the raw set. So the counting of the words will be different from the previous results. Doing such is valid and needed because:
+		i. This will not affect the Pss table (the state transition table). 
+		ii. For the Pse (the state-emission table), doing this will make sure that the backoff  probability is still a valid probability.
+		iii. This will not affect all other counts in the Pss table and the Pse table.
+	And we are probably doing better because we have more data to train our backoffed unigram model of words!
+
+	(a) That is because a###(0) and b###(n) has no data to explain, so all paths will be in the collection that canexplain the observed data. And the probability of all paths is 1.
+	
+	(b) The perplexity of the viterbi-tagged need to explain both the best states stream and the emission stream while the untagged perplexity only explain the word sequence (by summing over all path that could generate the word sequence). So the probability of the viterbi should naturally much lower than the untagged one, which will result a much higher perplexity.
+	
+	(c) That is because the way we are doing the EM. First we will get the model trained by the train set. Then we will use the the model from the train set to explain the raw set, give all the words in raw set a tag. After that, we treat both the train set and the tagged raw set together as a bigger training set for the next iteration. Note in the whole process the test set is never included, it is only used for testing the model, so we should not consider the word in the test set into the counts.
+	
+	(d) EM didn't helped on the overall tagging accuracy, although it seems that there was little improvement after the first re-estimation pass and such improvement is quite unstable, we can see up and downs. However, accuracy for seen words improved with successive iterations, accuracy for both known and novel words dropped with every iteration. 
+
+	(e) From the performance outputs, we know EM significantly improves the tagger's ability to deal with words that only appeared in the raw corpus.  This is because every iteration of EM shifts the tagger's probability estimates to something that fits the raw corpus better. And the perplexity is decreasing consecutively.
+
+	(f) EM uses a guess from the training data to estimate more data and use the results from that to improve the model, so if there is a difference between and training set and the raw set, the wrong model would estimate the raw data in the wrong way so that the results will be even worse. However, EM will mostly get more confirmed and go even further in the wrong direction.
+
+	(g) Interesting, in one summer I consumed 20 fudge bars in a single afternoon. Don't ask me how and why, I just couldn't stop. Hospital? No, I was fine, thanks!

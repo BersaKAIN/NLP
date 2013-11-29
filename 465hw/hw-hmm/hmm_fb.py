@@ -179,14 +179,11 @@ class ViterbiAlgorithm:
 					countNovel += 1
 					if currentTag == self.trueState[i]:
 						countNovelCorrect += 1
-					else:
-						print "it is the %d th word. My tag is %s true is %s" %(i,currentTag,self.trueState[i])
+
 				else:
 					countKnown += 1
 					if currentTag == self.trueState[i]:
 						countKnownCorrect += 1
-					else:
-						print "it is the %d th word. My tag is %s true is %s" %(i,currentTag,self.trueState[i])
 
 			currentTag = self.backpointer[currentTag+' '+str(i)]
 		perplex += self.viterbiValue["###"+' '+str(len(self.ob)-1)]
@@ -233,7 +230,7 @@ class ForwardBackward:
 		for i in range(len(self.ob)-1,1,-1):
 			for state in self.HmmModel.dict_e(self.ob[i]):
 				for oldstate in self.HmmModel.dict_e(self.ob[i-1]):
-					lp = log(self.HmmModel.Pss(oldstate,state)) + log(self.HmmModel.Pse(oldstate,self.ob[i-1]))
+					lp = log(self.HmmModel.Pss(oldstate,state)) + log(self.HmmModel.Pse(state,self.ob[i]))
 					lmu = self.beta[state+' '+str(i)] + lp
 					# implement the logadd method
 					self.beta[oldstate+' '+str(i-1)] = logadd(self.beta[oldstate+' '+str(i-1)], lmu)

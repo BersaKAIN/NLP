@@ -252,7 +252,7 @@ class ViterbiAlgorithm:
 			seenRate = 1
 		else:
 			seenRate = float(countSeenCorrect)/countSeen
-		print "Tagging accuracy (Viterbi decoding): %f   (Known: %f  Novel: %f Seen: %f)" % (100 * float(countNovelCorrect+countKnownCorrect)/(countKnown+countNovel), float(countKnownCorrect)/countKnown, novelRate, seenRate)
+		print "Tagging accuracy (Viterbi decoding): %f   (Known: %f  Novel: %f Seen: %f)" % (100 * float(countNovelCorrect+countKnownCorrect+countSeenCorrect)/(countKnown+countNovel+countSeen), float(countKnownCorrect)/countKnown, novelRate, seenRate)
 		print "Perplexity per viertibi-tagged test word: %f" % (math.e ** (-1 * perplex / len(self.ob)))
 
 class ForwardBackward:

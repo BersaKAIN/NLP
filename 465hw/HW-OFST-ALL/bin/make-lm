@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Usage: make-lm corpus.txt
+
+umask 077   # files in /tmp dir shouldn't be readable by other students
+
+fn=$(basename "$1");
+file_base=$fn
+ext="${fn##*.}"
+orig="$1"
+if [ "$ext" == "txt" ]; then
+    file_base="${fn%.*}"
+fi
+RDIR=${0%/*}/..  # parent dir of this script contains resources for this assignment
+
+: ${UNK_SYMBOL="<unk>"}
+: ${order=3}
+: ${num_lines_remove=100}
+
+sym=$file_base.sym
+
+
+#get the number of occurrences of each observed type in the test file
+perl -p -e 's/\s+/\n/g;' $orig | grep -Pv '^\s*$' | sort | uniq -c > /tmp/$file_base.$$.uniqcedwords
+num_unique_words=$(wc -l /tmp/$file_base.$$.uniqcedwords | awk '{print $1}')
+
+#now grab singletons and shuffle them
+grep -P '^\s*1 ' /tmp/$file_base.$$.uniqcedwords | awk '{print $2}' | sort > /tmp/$file_base.$$.singletons
+num_singletons=$(wc -l /tmp/$file_base.$$.singletons | awk '{print $1}')
+to_remove=$num_singletons
+if [[ $num_singletons -lt $num_lines_remove ]]; then
+    to_remove=$(echo "0.5 * $num_singletons" | bc);
+else
+    to_remove=$(echo "$num_lines_remove" | bc );
+fi
+to_remove=$(echo "$to_remove" | xargs printf "%1.0f")
+#and non-singletons
+grep -vP '^\s*1 ' /tmp/$file_base.$$.uniqcedwords | awk '{print $2}' > /tmp/$file_base.$$.alpha
+#and *remove* $to_remove number of singletons
+awk 'NR % '`echo "$num_unique_words/$to_remove" | bc`' != 0' /tmp/$file_base.$$.singletons >> /tmp/$file_base.$$.alpha
+
+#and make the two-column, symbol <-> byte translation transducer
+paste /tmp/$file_base.$$.alpha /tmp/$file_base.$$.alpha > $file_base.alpha
+
+
+
+#now make the symbol table
+sort /tmp/$file_base.$$.alpha | perl -ne 'chomp; print "$_ ";' | ngramsymbols > $sym
+
+#create straight-line FSAs from the corpus: one FSA per line!
+farcompilestrings --symbols=$sym --keep_symbols=1 --unknown_symbol="$UNK_SYMBOL" $orig  > /tmp/$file_base.$$.far
+#count
+ngramcount --order=${order} --epsilon_as_backoff=false /tmp/$file_base.$$.far > /tmp/$file_base.$$.counts 
+#and now make an appropriate model
+ngrammake --method=kneser_ney --backoff=true /tmp/$file_base.$$.counts > $file_base.fst
+
+if [[ ${cleanup:=1} != 0 ]]; then
+    ## /tmp/$file_base.withSA.$$.txt
+   rm  /tmp/$file_base.$$.far /tmp/$file_base.$$.counts
+fi
+

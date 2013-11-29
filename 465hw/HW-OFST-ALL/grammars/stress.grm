@@ -1,0 +1,8 @@
+import 'byte.grm' as bytelib;   # copy this file from grammars/byte.grm
+Letter = bytelib.kAlpha;        # kAlpha is defined in byte.grm
+Sigma = Letter | "'";           # alphabet also includes stress mark
+Vowel = "a" | "e" | "i" | "o" | "u" | "A" | "E" | "I" | "O" | "U";
+Consonant = Letter - Vowel;
+Nucleus = Vowel+;
+
+# YOU WILL FILL IN THE REST

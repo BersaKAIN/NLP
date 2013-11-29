@@ -1,0 +1,82 @@
+arpasyms = SymbolTable['arpabet.sym'];
+
+export Consonant = Optimize[
+    "B".arpasyms
+  | "CH".arpasyms
+  | "D".arpasyms
+  | "DH".arpasyms
+  | "F".arpasyms
+  | "G".arpasyms
+  | "HH".arpasyms
+  | "JH".arpasyms
+  | "K".arpasyms
+  | "L".arpasyms
+  | "M".arpasyms
+  | "N".arpasyms
+  | "NG".arpasyms
+  | "P".arpasyms
+  | "R".arpasyms
+  | "S".arpasyms
+  | "SH".arpasyms
+  | "T".arpasyms
+  | "TH".arpasyms
+  | "V".arpasyms
+  | "W".arpasyms
+  | "Y".arpasyms
+  | "Z".arpasyms
+  | "ZH".arpasyms
+];
+
+export Unstressed = Optimize[
+    "AA0".arpasyms
+  | "AE0".arpasyms
+  | "AH0".arpasyms
+  | "AO0".arpasyms
+  | "AW0".arpasyms
+  | "AY0".arpasyms
+  | "EH0".arpasyms
+  | "ER0".arpasyms
+  | "EY0".arpasyms
+  | "IH0".arpasyms
+  | "IY0".arpasyms
+  | "OW0".arpasyms
+  | "OY0".arpasyms
+  | "UH0".arpasyms
+  | "UW0".arpasyms
+];
+
+export Stressed = Optimize[
+    "AA1".arpasyms
+  | "AA2".arpasyms
+  | "AE1".arpasyms
+  | "AE2".arpasyms
+  | "AH1".arpasyms
+  | "AH2".arpasyms
+  | "AO1".arpasyms
+  | "AO2".arpasyms
+  | "AW1".arpasyms
+  | "AW2".arpasyms
+  | "AY1".arpasyms
+  | "AY2".arpasyms
+  | "EH1".arpasyms
+  | "EH2".arpasyms
+  | "ER1".arpasyms
+  | "ER2".arpasyms
+  | "EY1".arpasyms
+  | "EY2".arpasyms
+  | "IH1".arpasyms
+  | "IH2".arpasyms
+  | "IY1".arpasyms
+  | "IY2".arpasyms
+  | "OW1".arpasyms
+  | "OW2".arpasyms
+  | "OY1".arpasyms
+  | "OY2".arpasyms
+  | "UH1".arpasyms
+  | "UH2".arpasyms
+  | "UW1".arpasyms
+  | "UW2".arpasyms
+];
+
+export Vowel = Optimize[Unstressed | Stressed];
+export Phoneme = Optimize[Consonant | Vowel];

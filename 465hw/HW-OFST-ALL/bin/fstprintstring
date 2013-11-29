@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Usage: fstprintstring [in.fst]
+#
+# Prints a random output string from the FST.
+
+fstrandgen --select=log_prob $1 | fstproject --project_output=true | fstrmepsilon | fsttopsort | fstprint | cut -sf4 | perl -0777 -pe 's/^0x20$/ /mg; if (/[^\n][^\n]/) { s/\n/ /g } else { s/\n//g } $_.="\n"'   # perl script changes 0x20 to space, then turns newlines into spaces if any symbols have length > 1, and else deletes them.

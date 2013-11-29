@@ -22,7 +22,7 @@
 
 2.
 	See the code in hmm.py, to run the result:
-	perl vtag ./data/entrain ./data/entest
+	./vtag ./data/entrain ./data/entest
 
 3.  Together with 4 and 5, the answer shall be in hmm_fb.py.
 
@@ -37,7 +37,9 @@
 	(a) Tag dictionary: for every (tag word) pair, I add tag to the set of dict[word], so it maintains a set of all seen possible tags.
 	(b) One count smoothing: I used 
 
-6.	
+6.	To run:
+	./vtagem ./data/entrain25k ./data/entest ./data/enraw
+
 	Result:
 		Tagging accuracy (Viterbi decoding): 93.799762   (Known: 0.965223  Novel: 0.656461 Seen: 0.629117)
 		Perplexity per viertibi-tagged test word: 1272.261772

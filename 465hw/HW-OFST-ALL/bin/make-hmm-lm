@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Usage: make-hmm-lm <input_basename>
+# Create a bigram language model from text, where each 
+# line is 
+# <word>/<tag>
+# e.g.,
+# dog/N
+# Text is assumed to be in <input_basename>
+# Write language model to tags.model
+
+file_base="$1"
+: ${order=2}
+
+#separate out the training data into a word dump
+perl -ne '/^(.+)\/(.+)$/; print "$1 ";' $file_base | perl -p -e 'chomp; s/\#\#\#/\n/g;' | grep -Pv '^\s*$' > $file_base.words
+#and a tag dump
+perl -ne '/^(.+)\/(.+)$/; print "$2 ";' $file_base | perl -p -e 'chomp; s/\#\#\#/\n/g;' | grep -Pv '^\s*$' > $file_base.tags
+
+#from these, minimize the lists to create the alphabets
+perl -p -e 's/\s+/\n/g;' $file_base.words | sort |uniq > $file_base.words.alpha
+echo '" "' >> $file_base.words.alpha
+perl -p -e 's/\s+/\n/g;' $file_base.tags | sort | uniq > $file_base.tags.alpha
+echo '_' >> $file_base.tags.alpha
+
+#and make the human readable emission table
+perl -ne '/^(.+)\/(.+)$/; print "$2\t$1\n";' $file_base | sort | uniq -c | perl make-transitions.pl $file_base > $file_base.emit.grm
+mv $file_base.emit.grm datahelp/.
+ln -s -f datahelp/$file_base.emit.grm emit.grm
+
+cat $file_base.{words,tags} > $file_base.withSA.txt
+
+#create the symbol tables
+ngramsymbols < $file_base.words.alpha > $file_base.words.sym
+ngramsymbols < $file_base.tags.alpha > $file_base.tags.sym
+
+#make bigram tag models: transition probabilities
+farcompilestrings --symbols=$file_base.tags.sym --keep_symbols=1 $file_base.tags > $file_base.tags.far
+ngramcount --order=${order} $file_base.tags.far > $file_base.tags.counts 
+ngrammake --backoff=true $file_base.tags.counts > $file_base.tags.model
+
+mv $file_base.tags.counts $file_base.tags.model datahelp/.
+ln -s -f datahelp/$file_base.tags.model tags.model
+mv $file_base.{words,tags} $file_base.withSA.txt $file_base.tags.far datahelp/.
+
+for arg in alpha sym; do
+    for which in words tags; do
+	mv $file_base.$which.$arg datahelp/.
+	ln -s -f datahelp/$file_base.$which.$arg $which.$arg
+    done
+done

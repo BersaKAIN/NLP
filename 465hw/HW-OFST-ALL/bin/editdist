@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Usage: editdist reference_text hypothesized_text 
+# 
+# Set environment variable cleanup=0 if you don't want temporary files removed.
+# Set environment variable FSTSYMBOLS to a symbol table file if you want to 
+#    parse the files as a sequence of symbols rather than a sequence of bytes.
+
+ref=$(readlink -f "$1")
+hyp=$(readlink -f "$2")
+
+refedit=/tmp/${ref##*/}.$$.edit.fst
+hypedit=/tmp/${hyp##*/}.$$.edit.fst
+umask 077   # files in /tmp dir shouldn't be readable by other students
+
+# Edit machines were compiled  from grammars/editdist.grm .
+# Their sym table was extracted with
+#     fstsymbols --save_osymbols=../symbol_tables/edit.sym edit1.fst > /dev/null
+
+edit1="${0%/*}/../fsts/edit1.fst"
+edit2="${0%/*}/../fsts/edit2.fst"
+editsym="${0%/*}/../symbol_tables/edit.sym"
+
+# Cumulative edit distance stats
+total=0   
+count=0
+
+while read -r -u3 ref_line; read -r -u4 hyp_line; do 
+    ##echo "$line1:$line2"; 
+
+# Convert each file to a single string (replace non-final newlines with spaces),
+# and compose its automaton with an edit automaton.
+    echo $ref_line | perl -0777 -pe 's/\n(?=.)/ /gs' | FSTSYMBOLS=$editsym fstcompilestring | fstcompose - $edit1 | fstarcsort > $refedit
+    echo $hyp_line | perl -0777 -pe 's/\n(?=.)/ /gs' | FSTSYMBOLS=$editsym fstcompilestring | fstcompose $edit2 - | fstarcsort > $hypedit
+
+
+    # Finally, mash the two edited strings together to find the best alignment.
+    editdist=$(fstcompose $refedit $hypedit | fstshortestdistance --reverse | head -1 | cut -f2)
+    total=$(($total + $editdist))
+    count=$(($count + 1))
+    echo "Line $count: edit distance is $editdist"
+    echo -e "\t$ref_line\n\t$hyp_line"
+done 3< "$ref" 4< "$hyp"
+
+echo "Total edit distance $total over $count lines (about $(($total/$count)) per line)"
+
+if [ "${cleanup:=1}" -eq "1" ]; then
+   rm -f $refedit $hypedit
+fi

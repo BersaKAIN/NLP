@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Usage: make-run-hmm  <grm_file> <transducer_name> <input_symbol_table> <output_symbol_table> [max_number_output_lines=2]
+
+# Note that, as of 15 August 2013, this was not fully tested/integrated, 
+# since the HMM question was scrapped for the Fall 2012 assignment.
+# Things may have changed that break this! 
+# (Actually, this might(?) be replaceable entirely by grmtest-with-symbols.)
+
+name=$1
+rule=$2
+
+
+if [[ $name =~ ^(.+)[\.]([^\.]*)$ ]]; then
+    name=${BASH_REMATCH[1]};
+fi
+insymtab="$3"
+outsymtab="$4"
+numout="$5"
+if [[ -z $numout ]]; then
+    numout=2;
+fi
+
+
+thraxmakedep --save_symbols $name.grm
+make
+thraxrewrite-tester --print_rules=false --far=$name.far --input_mode=$insymtab --output_mode=$outsymtab --noutput=$numout --rules=$rule

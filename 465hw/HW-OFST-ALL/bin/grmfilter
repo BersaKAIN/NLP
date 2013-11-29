@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Usage: cat input.txt | grmfilter [-opts] <grammar file> name1,name2,... 
+# With -r: select a random path
+# With -s: find shortest path (default)
+# name1, name2, ..., must all be defined in the grammar file.
+# If environment variable run_random == 1, random paths are chosen 
+# in the composition; otherwise, shortest-path is used (default:
+# find shortest-path)
+
+: ${cleanup=1}
+: ${run_random=0}
+
+function usage {
+    echo -e "Usage:\n\tcat input.txt | grmfilter [-opts] <grammar file> name1,name2,..." 
+    echo "-r: select a random path"
+    echo "-s: find shortest path (default)"
+    echo "-h: print this help message (and exit)"
+    echo -e "\nNote that fst1, fst2, ..., are all defined in machines.far"
+    echo "At least one of -r or -s must NOT be set"
+    exit
+}
+
+run_random=0
+run_shortest=0
+
+while getopts "rs" opt; do
+    case $opt in
+	r)
+	    run_random=1
+	    ;;
+	s)
+	    run_shortest=1
+	    ;;
+	*)
+	    usage
+	    ;;
+    esac
+done
+
+if [[ $run_random -eq "1" ]] && [[ $run_shortest -eq "1" ]]; then
+    echo "Cannot run with both random (-r) and shortest-path (-s) selected!"
+    echo -e "\n"
+    usage
+fi
+
+if [[ $run_random -eq "0" ]] && [[ $run_shortest -eq "0" ]]; then
+    run_shortest=1
+fi
+
+shift $((OPTIND-1))
+
+if [[ $# -lt 2 ]]; then
+    usage
+fi
+
+
+#now extract provided .grm file and build far file from it
+name=$1
+if [[ $name =~ ^(.+)[\.]([^\.]*)$ ]]; then
+    name=${BASH_REMATCH[1]};
+fi
+
+(thraxmakedep --save_symbols $name.grm && make) 1>&2 || exit
+
+while read input_line; do
+    #names for files
+    current_fst=/tmp/$$.text.fst
+    next_fst=/tmp/$$.postchannel.fst
+    #create our current FST
+    echo "$input_line" | fstcompilestring > $current_fst
+
+    #work through the list of comma-separated rules
+    IFS=',' read -ra RULES <<< "$2"
+    for fstname in "${RULES[@]}"; do
+	farextract --filename_prefix="/tmp/$$." --filename_suffix=".fst" --begin_key=$fstname --end_key=$fstname $name.far
+	FSTFILE=/tmp/$$.${fstname}.fst
+	if [ ! -r $FSTFILE ]; then 
+	    echo "Error: Failed to extract $fstname from $name.far (probably was not exported by $name.grm)"
+	    exit 1
+	fi
+	#perform the composition
+	fstcompose $current_fst $FSTFILE > $next_fst
+	#and update the ``pointers''
+	mv $next_fst $current_fst
+    done
+
+    #You can get results one of two ways: either randomly or shortest-path
+    if [[ $run_random -eq 1 ]]; then
+	fstrandgen --seed=$RANDOM --select=log_prob $current_fst | fstprintstring;
+    else
+	fstshortestpath $current_fst | fstprintstring;
+    fi
+done
+
+if [[ "$cleanup" -eq "1" ]]; then
+    rm /tmp/$$.*
+fi

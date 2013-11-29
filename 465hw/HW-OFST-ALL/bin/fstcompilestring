@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Usage: fstcompilestring "my string" [out.fst]
+# Usage: echo "my string" | fstcompilestring > out.fst
+#
+# If the environment variable FSTSYMBOLS is defined, it will 
+# be used as the symbol table.  Otherwise byte symbols will be
+# used.
+
+SYMTABFILE=${0%/*}/../symbol_tables/byte.sym   # default symbol table file
+SYMTABNAME='**Byte symbols'    # name for that table reported by fstinfo on Thrax machines
+ln -sf $SYMTABFILE "$SYMTABNAME"  # hack: use symlink so we get that name too
+: ${FSTSYMBOLS:=$SYMTABNAME}
+
+
+if [[ $# == 0 ]]; then
+    farcompilestrings --generate_keys=1 --far_type=fst --token_type=byte --keep_symbols=1 --symbols="$FSTSYMBOLS" 
+else 
+    if [[ $# == 1 ]]; then
+	echo $1 | farcompilestrings --generate_keys=1 --far_type=fst --token_type=byte --keep_symbols=1 --symbols="$FSTSYMBOLS" 
+    else
+	echo $1 | farcompilestrings --generate_keys=1 --far_type=fst --token_type=byte --keep_symbols=1 --symbols="$FSTSYMBOLS" > $2
+    fi
+fi
+rm "$SYMTABNAME"

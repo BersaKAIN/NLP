@@ -1,0 +1,243 @@
+Tagging accuracy (Viterbi decoding): 90.909091   (Known: 0.909091  Novel: 1.000000 )
+Perplexity per viertibi-tagged test word: 3.489116
+the probability of the whole ob is -41.537818
+we are at day 34 adding new count_s to state ###: 1.000000
+we are at day 33 adding new count_s to state H: 0.155085
+we are at day 33 adding new count_s to state C: 0.044915
+we are at day 32 adding new count_s to state H: 0.170823
+we are at day 32 adding new count_s to state C: 0.029177
+we are at day 31 adding new count_s to state H: 0.668705
+we are at day 31 adding new count_s to state C: 0.004471
+we are at day 30 adding new count_s to state H: 0.189467
+we are at day 30 adding new count_s to state C: 0.010533
+we are at day 29 adding new count_s to state H: 0.677447
+we are at day 29 adding new count_s to state C: 0.003222
+we are at day 28 adding new count_s to state H: 0.639115
+we are at day 28 adding new count_s to state C: 0.008698
+we are at day 27 adding new count_s to state H: 0.098697
+we are at day 27 adding new count_s to state C: 0.101303
+we are at day 26 adding new count_s to state H: 0.007354
+we are at day 26 adding new count_s to state C: 0.648524
+we are at day 25 adding new count_s to state H: 0.001535
+we are at day 25 adding new count_s to state C: 0.689256
+we are at day 24 adding new count_s to state H: 0.001123
+we are at day 24 adding new count_s to state C: 0.692142
+we are at day 23 adding new count_s to state H: 0.007874
+we are at day 23 adding new count_s to state C: 0.192126
+we are at day 22 adding new count_s to state H: 0.003826
+we are at day 22 adding new count_s to state C: 0.673216
+we are at day 21 adding new count_s to state H: 0.100010
+we are at day 21 adding new count_s to state C: 0.085713
+we are at day 20 adding new count_s to state H: 0.002293
+we are at day 20 adding new count_s to state C: 0.683949
+we are at day 19 adding new count_s to state H: 0.000647
+we are at day 19 adding new count_s to state C: 0.695468
+we are at day 18 adding new count_s to state H: 0.000650
+we are at day 18 adding new count_s to state C: 0.695453
+we are at day 17 adding new count_s to state H: 0.004620
+we are at day 17 adding new count_s to state C: 0.195380
+we are at day 16 adding new count_s to state H: 0.000942
+we are at day 16 adding new count_s to state C: 0.693404
+we are at day 15 adding new count_s to state H: 0.002028
+we are at day 15 adding new count_s to state C: 0.685802
+we are at day 14 adding new count_s to state H: 0.011311
+we are at day 14 adding new count_s to state C: 0.620826
+we are at day 13 adding new count_s to state H: 0.545118
+we are at day 13 adding new count_s to state C: 0.022126
+we are at day 12 adding new count_s to state H: 0.599107
+we are at day 12 adding new count_s to state C: 0.014413
+we are at day 11 adding new count_s to state H: 0.075234
+we are at day 11 adding new count_s to state C: 0.173365
+we are at day 10 adding new count_s to state H: 0.642409
+we are at day 10 adding new count_s to state C: 0.008227
+we are at day 9 adding new count_s to state H: 0.182288
+we are at day 9 adding new count_s to state C: 0.017712
+we are at day 8 adding new count_s to state H: 0.186255
+we are at day 8 adding new count_s to state C: 0.013745
+we are at day 7 adding new count_s to state H: 0.684943
+we are at day 7 adding new count_s to state C: 0.002151
+we are at day 6 adding new count_s to state H: 0.193617
+we are at day 6 adding new count_s to state C: 0.006383
+we are at day 5 adding new count_s to state H: 0.691182
+we are at day 5 adding new count_s to state C: 0.001260
+we are at day 4 adding new count_s to state H: 0.194663
+we are at day 4 adding new count_s to state C: 0.005337
+we are at day 3 adding new count_s to state H: 0.692494
+we are at day 3 adding new count_s to state C: 0.001072
+we are at day 2 adding new count_s to state H: 0.683848
+we are at day 2 adding new count_s to state C: 0.002307
+we are at day 1 adding new count_s to state H: 0.174188
+we are at day 1 adding new count_s to state C: 0.025812
+printing the alpha table
+defaultdict(<function <lambda> at 0x108a36140>, {'C 8': -11.732834685376211, 'C 9': -13.000613115686205, 'C 1': -2.3025850929940455, 'C 2': -4.710530701645917, 'C 3': -6.607650686531798, 'C 4': -6.975820009896266, 'C 5': -8.929214746123646, 'C 6': -9.347823333202747, 'C 7': -11.307883482972034, 'C 32': -39.445380860521624, 'C 33': -40.72877339759639, 'C 18': -21.599746807914848, 'C 19': -22.17459187886367, 'H 33': -39.489578154930975, 'C 30': -36.852338015320306, 'C 12': -17.00423635731625, 'C 13': -18.981349038679998, 'C 10': -15.161413776621345, 'C 11': -14.573029649522269, 'C 16': -19.211549302353884, 'C 17': -21.03970422272604, 'C 14': -18.170147082867032, 'C 15': -18.647529346811055, 'H 28': -32.96116626496958, 'H 29': -33.47604961418489, 'H 22': -27.664628998384174, 'H 23': -28.87586853463475, 'H 20': -26.607906049104415, 'H 21': -25.254469395570197, 'H 26': -33.08946687130434, 'H 27': -32.99977740206324, 'H 24': -31.015538448581005, 'H 25': -32.34243810262298, 'H 32': -37.67812203919416, '### 34': -41.53781782107521, 'H 9': -11.741220126602625, 'H 8': -9.929013235909625, 'H 3': -3.3267394707441453, 'H 2': -2.7646205525906042, 'H 1': -2.3025850929940455, 'H 7': -8.101481760621246, 'H 6': -7.541997451885525, 'H 5': -5.714423894256195, 'H 4': -5.154632693369, 'H 31': -35.85137349580485, 'H 30': -35.29761845566546, 'C 29': -35.8998098932811, 'C 28': -33.58344772633512, 'C 27': -31.075807758297756, 'C 26': -29.24589985113629, 'C 25': -28.66925075263429, 'C 24': -28.096155477828344, 'C 23': -27.548961036460828, 'C 22': -25.734355596524082, 'C 21': -25.274574052350943, 'C 20': -22.751484863246215, '### 0': 0, 'C 31': -38.91325156114925, 'H 19': -25.927973382144266, 'H 18': -24.821464204788466, 'H 17': -22.873649176236615, 'H 16': -22.550029948320176, 'H 15': -20.708015902184652, 'H 14': -18.317565055443286, 'H 13': -15.796998705611335, 'H 12': -15.238333930975575, 'H 11': -14.804878239772544, 'H 10': -12.286175193198968})
+printing the beta table
+defaultdict(<function <lambda> at 0x108a361b8>, {'C 8': -34.09203720139822, 'C 9': -32.57070516394512, 'C 16': -22.692410914470162, 'C 2': -42.89890380385467, 'C 3': -41.768165766519324, 'C 4': -39.79507708763273, 'C 5': -39.285527672548916, 'C 6': -37.244169258029345, 'C 17': -22.130921194011744, 'C 14': -23.844375386275242, 'C 15': -23.26745467751374, 'C 18': -20.301262374424155, 'C 19': -19.72639675656357, 'C 12': -28.773183777818705, 'C 13': -26.36746845254592, 'C 10': -31.176709861437896, 'C 11': -28.717142492743815, 'C 30': -9.238739846497879, 'C 31': -8.034767042171943, 'C 32': -5.626821433520072, 'C 33': -3.9120230054281455, 'C 29': -11.375810501014351, 'H 28': -9.024322255883973, 'H 29': -8.45119199051645, 'C 1': -42.89216504946746, 'H 22': -19.43903228701996, 'H 23': -17.50618624770484, 'H 20': -21.00782615523674, 'H 21': -18.585831895028537, 'H 26': -13.360906025542247, 'H 27': -10.853739195089055, 'H 24': -17.314365526093937, 'H 25': -15.674675221660006, 'C 28': -12.699050492652542, '### 34': 0, 'H 9': -31.498766328672204, 'H 8': -33.28944508711598, 'H 3': -38.57853366638272, 'H 2': -39.153216991612865, 'H 1': -40.98285038003605, 'C 7': -36.37175405049716, 'H 7': -33.814755776027134, 'H 6': -35.63769176520348, 'H 5': -36.19274533813954, 'H 4': -38.01967088569043, 'H 31': -6.08885689311663, 'H 30': -7.90373877976554, 'H 33': -3.9120230054281455, 'H 32': -5.626821433520072, 'C 27': -12.751651217790037, 'C 26': -12.724973814514692, 'C 25': -13.240709942636682, 'C 24': -13.809627020702116, 'C 23': -15.638458694777453, 'C 22': -16.199151961488358, 'C 21': -18.71999647979474, 'C 20': -19.16620441147599, '### 0': -41.5378178210752, 'H 19': -22.952264333964077, 'H 18': -24.05562569271123, 'H 17': -24.041584328215084, 'H 16': -25.954998445197262, 'H 15': -27.03037200495439, 'H 14': -27.70226851809569, 'H 13': -26.347572740563088, 'H 12': -26.81179938776838, 'H 11': -29.320097879516187, 'H 10': -29.694172134217016})
+printing the count_ss
+defaultdict(<type 'float'>, {'H ###': 2.0, '### C': 2.0, 'C ###': 2.0, '### H': 2.0, 'C H': 2.0, 'H C': 2.0, 'H H': 16.0, 'C C': 16.0})
+printing the count_se
+defaultdict(<type 'float'>, {'C 1': 14.0, 'C 2': 4.0, 'C 3': 2.0, '### ###': 4.0, 'H 3': 14.0, 'H 2': 4.0, 'H 1': 2.0})
+printing the count_s
+defaultdict(<type 'float'>, {'H': 20.0, 'C': 20.0, '###': 4.0})
+Iteration 1:  Perplexity per untagged raw word:   3.276562
+Tagging accuracy (Viterbi decoding): 90.909091   (Known: 0.909091  Novel: 1.000000 )
+Perplexity per viertibi-tagged test word: 3.406995
+the probability of the whole ob is -41.047186
+we are at day 34 adding new count_s to state ###: 1.000000
+we are at day 33 adding new count_s to state H: 0.161854
+we are at day 33 adding new count_s to state C: 0.029470
+we are at day 32 adding new count_s to state H: 0.176101
+we are at day 32 adding new count_s to state C: 0.017337
+we are at day 31 adding new count_s to state H: 0.712362
+we are at day 31 adding new count_s to state C: 0.001778
+we are at day 30 adding new count_s to state H: 0.190504
+we are at day 30 adding new count_s to state C: 0.005071
+we are at day 29 adding new count_s to state H: 0.717854
+we are at day 29 adding new count_s to state C: 0.001193
+we are at day 28 adding new count_s to state H: 0.687619
+we are at day 28 adding new count_s to state C: 0.004412
+we are at day 27 adding new count_s to state H: 0.104430
+we are at day 27 adding new count_s to state C: 0.078374
+we are at day 26 adding new count_s to state H: 0.003968
+we are at day 26 adding new count_s to state C: 0.714841
+we are at day 25 adding new count_s to state H: 0.000580
+we are at day 25 adding new count_s to state C: 0.749192
+we are at day 24 adding new count_s to state H: 0.000473
+we are at day 24 adding new count_s to state C: 0.750276
+we are at day 23 adding new count_s to state H: 0.007212
+we are at day 23 adding new count_s to state C: 0.161168
+we are at day 22 adding new count_s to state H: 0.002347
+we are at day 22 adding new count_s to state C: 0.731278
+we are at day 21 adding new count_s to state H: 0.115547
+we are at day 21 adding new count_s to state C: 0.065315
+we are at day 20 adding new count_s to state H: 0.001261
+we are at day 20 adding new count_s to state C: 0.742285
+we are at day 19 adding new count_s to state H: 0.000265
+we are at day 19 adding new count_s to state C: 0.752390
+we are at day 18 adding new count_s to state H: 0.000297
+we are at day 18 adding new count_s to state C: 0.752068
+we are at day 17 adding new count_s to state H: 0.004296
+we are at day 17 adding new count_s to state C: 0.163651
+we are at day 16 adding new count_s to state H: 0.000379
+we are at day 16 adding new count_s to state C: 0.751229
+we are at day 15 adding new count_s to state H: 0.000760
+we are at day 15 adding new count_s to state C: 0.747365
+we are at day 14 adding new count_s to state H: 0.006029
+we are at day 14 adding new count_s to state C: 0.693955
+we are at day 13 adding new count_s to state H: 0.599087
+we are at day 13 adding new count_s to state C: 0.013837
+we are at day 12 adding new count_s to state H: 0.645030
+we are at day 12 adding new count_s to state C: 0.008946
+we are at day 11 adding new count_s to state H: 0.055614
+we are at day 11 adding new count_s to state C: 0.191263
+we are at day 10 adding new count_s to state H: 0.685523
+we are at day 10 adding new count_s to state C: 0.004635
+we are at day 9 adding new count_s to state H: 0.184313
+we are at day 9 adding new count_s to state C: 0.010343
+we are at day 8 adding new count_s to state H: 0.187397
+we are at day 8 adding new count_s to state C: 0.007717
+we are at day 7 adding new count_s to state H: 0.720817
+we are at day 7 adding new count_s to state C: 0.000878
+we are at day 6 adding new count_s to state H: 0.192324
+we are at day 6 adding new count_s to state C: 0.003520
+we are at day 5 adding new count_s to state H: 0.724089
+we are at day 5 adding new count_s to state C: 0.000529
+we are at day 4 adding new count_s to state H: 0.192873
+we are at day 4 adding new count_s to state C: 0.003053
+we are at day 3 adding new count_s to state H: 0.725284
+we are at day 3 adding new count_s to state C: 0.000402
+we are at day 2 adding new count_s to state H: 0.721144
+we are at day 2 adding new count_s to state C: 0.000843
+we are at day 1 adding new count_s to state H: 0.181088
+we are at day 1 adding new count_s to state C: 0.013090
+printing the alpha table
+defaultdict(<function <lambda> at 0x108a361b8>, {'C 8': -11.62831309021059, 'C 9': -12.932641748801231, 'C 1': -2.64166722739078, 'C 2': -5.2029738940748835, 'C 3': -6.966625917616045, 'C 4': -7.017837286917945, 'C 5': -9.07167737453972, 'C 6': -9.307522541702868, 'C 7': -11.378475181088147, 'C 32': -38.86421480042978, 'C 33': -40.17587128618054, 'C 18': -21.126640842254528, 'C 19': -21.59204131954167, 'H 33': -38.66630189583986, 'C 30': -36.39951598873695, 'C 12': -16.860290013946702, 'C 13': -19.024077432327598, 'C 10': -15.221300023375678, 'C 11': -14.189809823423307, 'C 16': -18.704309904351298, 'C 17': -20.677757241061315, 'C 14': -17.851188487250447, 'C 15': -18.244010735417444, 'H 28': -32.24529647789735, 'H 29': -32.71399277804536, 'H 22': -27.303238471080235, 'H 23': -28.412102346596306, 'H 20': -26.40458196631524, 'H 21': -24.599238532588256, 'H 26': -32.792976161217055, 'H 27': -32.30510909645041, 'H 24': -30.83890962983827, 'H 25': -32.18189483149342, 'H 32': -36.85521099384116, '### 34': -41.04718615331584, 'H 9': -11.41559187962209, 'H 8': -9.604266237272318, 'H 3': -3.131837862801508, 'H 2': -2.6252161651723696, 'H 1': -2.1821048717950116, 'H 7': -7.780585383079715, 'H 6': -7.280525700574205, 'H 5': -5.456790069391286, 'H 4': -4.956204474867195, 'H 31': -35.031812041459325, 'H 30': -34.53446372868728, 'C 29': -35.62412906194068, 'C 28': -33.15292794920523, 'C 27': -30.428309230822958, 'C 26': -28.454237728309366, 'C 25': -27.98739109285058, 'C 24': -27.523220041852387, 'C 23': -27.087536925451552, 'C 22': -25.126047112029106, 'C 21': -24.80115566339841, 'C 20': -22.05900531097117, '### 0': 0, 'C 31': -38.54650972945279, 'H 19': -25.850201923543317, 'H 18': -24.75550036966972, 'H 17': -22.51843022754777, 'H 16': -22.721726704999114, 'H 15': -20.945087850565418, 'H 14': -18.322899486775217, 'H 13': -15.529648301838895, 'H 12': -15.03299664447756, 'H 11': -14.697977387038382, 'H 10': -11.905430320525294})
+printing the beta table
+defaultdict(<function <lambda> at 0x108a360c8>, {'C 8': -34.28324914576293, 'C 9': -32.68597136929889, 'C 16': -22.628921120170286, 'C 2': -42.92278350739801, 'C 3': -41.89901204264828, 'C 4': -39.82104164301146, 'C 5': -39.51911992730403, 'C 6': -37.388853224119295, 'C 17': -22.17944818081979, 'C 14': -23.56134617442659, 'C 15': -23.094376900299785, 'C 18': -20.2054739662185, 'C 19': -19.739644791625594, 'C 12': -28.903429362577022, 'C 13': -26.303497032324596, 'C 10': -31.19994923506487, 'C 11': -28.511481847046685, 'C 30': -9.931950054840245, 'C 31': -8.83298592199101, 'C 32': -6.237899846867493, 'C 33': -4.395697863307139, 'C 29': -12.154087925390831, 'H 28': -9.176410463644718, 'H 29': -8.664682760908043, 'C 1': -42.741451086200655, 'H 22': -19.798499634877132, 'H 23': -17.567110212249816, 'H 20': -21.3180828289112, 'H 21': -18.606021829305877, 'H 26': -13.783583934550032, 'H 27': -11.001314124477174, 'H 24': -17.864134538834577, 'H 25': -16.31745900123051, 'C 28': -13.317652942373133, '### 34': 0, 'H 9': -31.322715605610487, 'H 8': -33.11744652373952, 'H 3': -38.23653984512216, 'H 2': -38.74888582170333, 'H 1': -40.573854718440444, 'C 7': -36.70670595658797, 'H 7': -33.593971399415025, 'H 6': -35.415233209880775, 'H 5': -35.91323685841001, 'H 4': -37.73670386891452, 'H 31': -6.354542697463555, 'H 30': -8.170805556101913, 'H 33': -4.201946563057882, 'H 32': -5.928673826614099, 'C 27': -13.165143651684078, 'C 26': -12.928642869703305, 'C 25': -13.348555007641714, 'C 24': -13.811280283994352, 'C 23': -15.784958378126055, 'C 22': -16.234100011587806, 'C 21': -18.97456158381648, 'C 20': -19.286202663599045, '### 0': -41.04718615331584, 'H 19': -23.433894216409925, 'H 18': -24.415116171869332, 'H 17': -23.97880566357298, 'H 16': -26.202727489065623, 'H 15': -27.28377709128644, 'H 14': -27.835508513325966, 'H 13': -26.029886467230874, 'H 12': -26.45264764641638, 'H 11': -29.238537307886528, 'H 10': -29.519329135091397})
+printing the count_ss
+defaultdict(<type 'float'>, {'H ###': 2.1550847807086404, 'H H': 23.169585637420763, 'C ###': 2.0449152192913593, 'H C': 2.964227329883239, 'C H': 2.706263870674096, '### H': 2.8709421349545288, '### C': 2.12905786504548, 'C C': 22.99630893400218})
+printing the count_se
+defaultdict(<type 'float'>, {'C 1': 20.951404795569065, 'C 2': 4.6424230291235125, 'C 3': 2.153660199275075, '### ###': 5.0, 'H 3': 20.62437860507456, 'H 2': 5.557576970876507, 'H 1': 2.106942172061573})
+printing the count_s
+defaultdict(<type 'float'>, {'H': 28.288897748012637, 'C': 27.74748802396765, '###': 5.0})
+Iteration 1:  Perplexity per untagged raw word:   3.230952
+Tagging accuracy (Viterbi decoding): 90.909091   (Known: 0.909091  Novel: 1.000000 )
+Perplexity per viertibi-tagged test word: 3.408640
+the probability of the whole ob is -41.109241
+we are at day 34 adding new count_s to state ###: 1.000000
+we are at day 33 adding new count_s to state H: 0.162166
+we are at day 33 adding new count_s to state C: 0.026477
+we are at day 32 adding new count_s to state H: 0.175799
+we are at day 32 adding new count_s to state C: 0.015296
+we are at day 31 adding new count_s to state H: 0.718625
+we are at day 31 adding new count_s to state C: 0.001502
+we are at day 30 adding new count_s to state H: 0.189087
+we are at day 30 adding new count_s to state C: 0.004398
+we are at day 29 adding new count_s to state H: 0.723474
+we are at day 29 adding new count_s to state C: 0.001008
+we are at day 28 adding new count_s to state H: 0.694714
+we are at day 28 adding new count_s to state C: 0.003935
+we are at day 27 adding new count_s to state H: 0.105270
+we are at day 27 adding new count_s to state C: 0.073141
+we are at day 26 adding new count_s to state H: 0.003736
+we are at day 26 adding new count_s to state C: 0.726235
+we are at day 25 adding new count_s to state H: 0.000526
+we are at day 25 adding new count_s to state C: 0.760301
+we are at day 24 adding new count_s to state H: 0.000442
+we are at day 24 adding new count_s to state C: 0.761185
+we are at day 23 adding new count_s to state H: 0.007364
+we are at day 23 adding new count_s to state C: 0.153439
+we are at day 22 adding new count_s to state H: 0.002297
+we are at day 22 adding new count_s to state C: 0.741506
+we are at day 21 adding new count_s to state H: 0.120708
+we are at day 21 adding new count_s to state C: 0.062356
+we are at day 20 adding new count_s to state H: 0.001208
+we are at day 20 adding new count_s to state C: 0.753060
+we are at day 19 adding new count_s to state H: 0.000244
+we are at day 19 adding new count_s to state C: 0.763289
+we are at day 18 adding new count_s to state H: 0.000279
+we are at day 18 adding new count_s to state C: 0.762917
+we are at day 17 adding new count_s to state H: 0.004392
+we are at day 17 adding new count_s to state C: 0.155877
+we are at day 16 adding new count_s to state H: 0.000351
+we are at day 16 adding new count_s to state C: 0.762156
+we are at day 15 adding new count_s to state H: 0.000683
+we are at day 15 adding new count_s to state C: 0.758630
+we are at day 14 adding new count_s to state H: 0.005628
+we are at day 14 adding new count_s to state C: 0.706154
+we are at day 13 adding new count_s to state H: 0.608246
+we are at day 13 adding new count_s to state C: 0.012736
+we are at day 12 adding new count_s to state H: 0.652798
+we are at day 12 adding new count_s to state C: 0.008201
+we are at day 11 adding new count_s to state H: 0.053820
+we are at day 11 adding new count_s to state C: 0.194748
+we are at day 10 adding new count_s to state H: 0.692171
+we are at day 10 adding new count_s to state C: 0.004194
+we are at day 9 adding new count_s to state H: 0.183229
+we are at day 9 adding new count_s to state C: 0.009202
+we are at day 8 adding new count_s to state H: 0.186120
+we are at day 8 adding new count_s to state C: 0.006831
+we are at day 7 adding new count_s to state H: 0.725941
+we are at day 7 adding new count_s to state C: 0.000757
+we are at day 6 adding new count_s to state H: 0.190604
+we are at day 6 adding new count_s to state C: 0.003154
+we are at day 5 adding new count_s to state H: 0.728804
+we are at day 5 adding new count_s to state C: 0.000466
+we are at day 4 adding new count_s to state H: 0.191078
+we are at day 4 adding new count_s to state C: 0.002765
+we are at day 3 adding new count_s to state H: 0.729929
+we are at day 3 adding new count_s to state C: 0.000351
+we are at day 2 adding new count_s to state H: 0.726228
+we are at day 2 adding new count_s to state C: 0.000728
+we are at day 1 adding new count_s to state H: 0.180291
+we are at day 1 adding new count_s to state C: 0.011612
+printing the alpha table
+defaultdict(<function <lambda> at 0x108a360c8>, {'C 8': -11.677673067896384, 'C 9': -13.004705216643703, 'C 1': -2.7137620408484047, 'C 2': -5.299006591441568, 'C 3': -7.032162041534339, 'C 4': -7.059165629061549, 'C 5': -9.126502294512285, 'C 6': -9.352728354572147, 'C 7': -11.437613389223104, 'C 32': -38.941089474777165, 'C 33': -40.27432492095048, 'C 18': -21.14346437944767, 'C 19': -21.593732357663928, 'H 33': -38.70455555256798, 'C 30': -36.48533173291154, 'C 12': -16.908285955682327, 'C 13': -19.099300168118162, 'C 10': -15.308567235065418, 'C 11': -14.19770926627739, 'C 16': -18.690020949653523, 'C 17': -20.71055354770073, 'C 14': -17.8641825187711, 'C 15': -18.244341724453864, 'H 28': -32.26242652011405, 'H 29': -32.72738069401554, 'H 22': -27.314599639927163, 'H 23': -28.424557441300983, 'H 20': -26.434538325946416, 'H 21': -24.576274616359672, 'H 26': -32.83964647842232, 'H 27': -32.31472059386573, 'H 24': -30.89118740624064, 'H 25': -32.24421487294918, 'H 32': -36.883160490449946, '### 34': -41.10924074451092, 'H 9': -11.428911150009966, 'H 8': -9.6073297888949, 'H 3': -3.117217383394827, 'H 2': -2.616272491499807, 'H 1': -2.174834171219731, 'H 7': -7.773793043786346, 'H 6': -7.279661402371385, 'H 5': -5.446074132250226, 'H 4': -4.951435573190638, 'H 31': -35.04985581837002, 'H 30': -34.55805620296007, 'C 29': -35.73156168685375, 'C 28': -33.24009658809417, 'C 27': -30.47821425379709, 'C 26': -28.457131112302644, 'C 25': -28.00540609307322, 'C 24': -27.556359601355364, 'C 23': -27.137197922658657, 'C 22': -25.128677378428204, 'C 21': -24.82588107072372, 'C 20': -22.04556872393826, '### 0': 0, 'C 31': -38.640737774767416, 'H 19': -25.89547959884632, 'H 18': -24.795136490200612, 'H 17': -22.515307096192327, 'H 16': -22.773734064632002, 'H 15': -21.019372818530123, 'H 14': -18.373814818854758, 'H 13': -15.549532988894695, 'H 12': -15.05912744480477, 'H 11': -14.737212268360087, 'H 10': -11.913505299648246})
+printing the beta table
+defaultdict(<function <lambda> at 0x108a36140>, {'C 8': -34.417833599342025, 'C 9': -32.79283989236379, 'C 16': -22.690824034147536, 'C 2': -43.03577182519795, 'C 3': -42.03163378647307, 'C 4': -39.94071345214434, 'C 5': -39.65490348243291, 'C 6': -37.51567687653942, 'C 17': -22.257377227237843, 'C 14': -23.592980743988928, 'C 15': -23.141140000252143, 'C 18': -20.236382594601498, 'C 19': -19.785626849106777, 'C 12': -29.004425874712975, 'C 13': -26.3732934907617, 'C 10': -31.274784326608756, 'C 11': -28.547581571353557, 'C 30': -10.050536292334412, 'C 31': -8.969732919270768, 'C 32': -6.348311466046836, 'C 33': -4.4663871224565135, 'C 29': -12.277384512349936, 'H 28': -9.211069865197844, 'H 29': -8.705551248188845, 'C 1': -42.851191684628255, 'H 22': -19.870845273150653, 'H 23': -17.59585667200542, 'H 20': -21.393410916730993, 'H 21': -18.64734625328645, 'H 26': -13.859363054136379, 'H 27': -11.045748381984383, 'H 24': -17.94138348014555, 'H 25': -16.415784341315742, 'C 28': -13.406938038209468, '### 34': 0, 'H 9': -31.377347214814495, 'H 8': -33.18327318314335, 'H 3': -38.30683120590005, 'H 2': -38.812859680212526, 'H 1': -40.64758965580138, 'C 7': -36.85788271049038, 'H 7': -33.6557336817094, 'H 6': -35.4871365516606, 'H 5': -35.979517564518105, 'H 4': -37.81288003905829, 'H 31': -6.3898009529103845, 'H 30': -8.216732375838458, 'H 33': -4.22381865402178, 'H 32': -5.9644933890966, 'C 27': -13.24639089192472, 'C 26': -12.971990901794268, 'C 25': -13.377875329611994, 'C 24': -13.825759478323874, 'C 23': -15.846492441036531, 'C 22': -16.279635636633156, 'C 21': -19.058257208985246, 'C 20': -19.347282685666535, '### 0': -41.10924074451093, 'H 19': -23.531504720860397, 'H 18': -24.497608465658068, 'H 17': -24.021882039600698, 'H 16': -26.290413523439618, 'H 15': -27.378617178264804, 'H 14': -27.91537790382235, 'H 13': -26.056883447225974, 'H 12': -26.476600569059883, 'H 11': -29.294132594184855, 'H 10': -29.563657421594556})
+printing the count_ss
+defaultdict(<type 'float'>, {'H ###': 2.161853721464363, 'H H': 23.527636576426964, 'C ###': 2.0294699848542126, 'H C': 3.019231327956538, 'C H': 2.7712330953528, '### H': 2.9217638357841667, '### C': 2.078236164215836, 'C C': 23.37100249382362})
+printing the count_se
+defaultdict(<type 'float'>, {'C 1': 21.576143201572933, 'C 2': 4.492792568934928, 'C 3': 2.102769803522783, '### ###': 5.0, 'H 3': 21.054356734162017, 'H 2': 5.582391227280709, 'H 1': 2.0719736644051316})
+printing the count_s
+defaultdict(<type 'float'>, {'H': 28.708721625847858, 'C': 28.171705574030643, '###': 5.0})
+Iteration 1:  Perplexity per untagged raw word:   3.236685

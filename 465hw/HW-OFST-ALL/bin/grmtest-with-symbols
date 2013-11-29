@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Usage:  grmtest-with-symbols <grm_file> <transducer_name> <input_symbol_table> <output_symbol_table> [max_number_output_lines]
+# Test FST <transducer_name> from <grm_file>. Generate 
+# [max_number_output_lines] (default: 1), using the input and 
+# output tables to properly encode/decode. 
+name="$1"
+if [[ -z $name ]]; then
+    echo Usage: grmtest-with-symbols grm_file transducer_name input_symbol_table output_symbol_table [ max_number_output_lines ]
+    exit
+fi
+if [[ $name =~ ^(.+)[\.]([^\.]*)$ ]]; then
+    name=${BASH_REMATCH[1]};
+fi
+
+rule="$2"
+if [[ -z $rule ]]; then
+    echo Error: Please specify the name of an FSM to test from $name.
+    exit
+fi
+
+symtab=""
+if [[ -n "$3" ]]; then
+    symtab="--input_mode=$3 --output_mode=$4"
+fi 
+numout="$5"
+if [[ -z $numout ]]; then
+    numout=100;
+fi
+
+if thraxmakedep --save_symbols $name.grm && make; then 
+trt="thraxrewrite-tester --print_rules=false --far=$name.far $symtab --noutput=$numout --rules=$rule --fst_compat_symbols=false"
+echo $trt
+eval "$trt"
+fi
+

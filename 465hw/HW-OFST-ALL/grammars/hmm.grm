@@ -1,0 +1,25 @@
+#load in the premade transition table, emit.EMISSIONS
+#this table defines p(word | tag)
+import 'emit.grm' as emit;
+
+#first load in symbol table; this contains both the tag and word
+#alphabets
+tagSyms = SymbolTable['tags.sym'];
+wordSyms = SymbolTable['words.sym'];
+
+#now load in the tag and word alphabets
+Tags = Optimize[Project[StringFile['tags.alpha', tagSyms, tagSyms],'input']];
+TagsStar = Optimize[Tags*];
+Words = Optimize[Project[StringFile['words.alpha',wordSyms, wordSyms],'input']];
+WordsStar = Optimize[Words*];	
+
+#now load in the transition table, p_transition(j | i)
+export TransitionTable = ???
+
+#Now define the emission table. Remember that we've already
+#brought in an emission table, emit.EMISSIONS
+#Is that enough? Is it correctly defined for our purposes?
+export EmissionTable = ???
+
+#Now define an HMM.
+export HMM = Optimize[???];

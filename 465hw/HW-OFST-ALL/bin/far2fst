@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Usage: far2fst farfile [fstnames ...]
+# 
+# Extracts the named FSTs from the given .far file into .fst files.
+# If no FST names are given, then all exported FSTs are extracted.
+# 
+# Uses farextract.  See also fsts-from-far and farinfo.
+#
+# TODO: Should also provide a way to extract a single FST onto stdout,
+# which could be piped into fstview or other commands.
+
+FARFILE=$1; shift
+if [[ $# == 0 ]]; then
+   farextract --filename_suffix=.fst $FARFILE
+else
+   for NAME in $@; do
+      farextract --filename_suffix=.fst --begin_key=$NAME --end_key=$NAME $FARFILE
+   done
+fi

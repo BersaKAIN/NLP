@@ -1,0 +1,9 @@
+import 'byte.grm' as bytelib;
+Sigma = bytelib.kGraph | bytelib.kSpace;
+
+Pronounce = StringFile['cmufull.txt'];
+StressPattern = CDRewrite[(Sigma - bytelib.kDigit) : "", "", "", Sigma*, 'sim', 'obl'];
+Dacytl = ("1" | "2") "0" "0";  
+
+export Results = Optimize[Project[Pronounce @ StressPattern @ (Dacytl*), 'input']];
+export ListResults = "" : Results;

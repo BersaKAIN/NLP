@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Usage: fstoptimize [input FST] [output FST]
+# Typically, this is used with other piped FST commands.
+# Will default to STDIN/STDOUT when the positional arguments
+# are not given.
+
+fstrmepsilon $1 | fstdeterminize | fstminimize - $2

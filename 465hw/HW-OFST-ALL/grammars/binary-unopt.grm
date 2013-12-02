@@ -1,6 +1,6 @@
 Zero = "0";
 One = "1";
 Bit = Zero | One;
-export First = Optimize[Zero Zero* Bit* One One One One?];
-export Second = Optimize[Zero Bit* One One One+];
+export First = Zero Zero* Bit* One One One One?;
+export Second = Zero Bit* One One One+;
 export Disagreement = Optimize[(First - Second) | (Second - First)];

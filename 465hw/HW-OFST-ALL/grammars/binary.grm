@@ -2,3 +2,4 @@ Zero = "0";
 One = "1";
 Bit = Zero | One;
 export First = Optimize[Zero Zero* Bit* One One One One?];
+export Second = Optimize[Zero Bit* One One One+]

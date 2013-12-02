@@ -15,6 +15,7 @@ if [[ $# == 0 ]]; then
    farextract --filename_suffix=.fst $FARFILE
 else
    for NAME in $@; do
+      echo $NAME
       farextract --filename_suffix=.fst --begin_key=$NAME --end_key=$NAME $FARFILE
    done
 fi

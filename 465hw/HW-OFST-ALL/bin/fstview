@@ -14,6 +14,6 @@ for FSTFILE in "$@" $STDINFILE; do
    FSTBASE=${FSTFILE%.*}               # remove filename extension
    PDFFILE=/tmp/${FSTBASE##*/}.$$.pdf  # target name of pdf file in /tmp directory
    fstdraw --portrait "$FSTFILE" | dot -Tpdf > "$PDFFILE"   # make pdf file
-   evince "$PDFFILE"                   # view pdf file
+   open -a Preview  "$PDFFILE"                   # view pdf file
    echo
 done

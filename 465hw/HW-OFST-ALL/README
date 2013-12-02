@@ -1,0 +1,35 @@
+Natural Language Processing
+
+Finite State Programming
+
+How to compile on OS 10.9:
+./configure --enable-far=yes --enable-pdt=yes --enable-ngram-fsts=yes CXX="clang++ -std=c++11 -stdlib=libstdc++"
+make
+make install
+
+
+2.	
+	(a)
+		ii. First should accept strings start with one or more "0"s followed by any string (Composed of 1 and 0) then followed by greater or equal to three "1"'s.
+
+		iii. There are 5 states and Nine arcs.
+
+	(b)
+		i. See the binary.grm, or it's: export Second = Optimize[Zero Bit* One One One+];
+
+		ii. The Disagreement should accept nothing, not even the empty string.
+
+		iii. From the result of fstinfo, I saw that there is some initial state -1 but besides that, there is no other state and no other arcs, let alone a end state, so the fst is going to accept nothing.
+
+	(c)
+		i. The unoptimized version of First will have 20 states and 25 arcs. The unoptimized version of Second would have 13 states and 17 arcs. Disagreement would have 67 states and 87 arcs but no final states which means it will still accept nothing.
+
+		ii. This is because in the definition of Disagreement we are taking a union of two FSTs: (First - Second) and (Second - First).
+
+		iii. The unoptimized version of First should behave just the same as the optimized version. Though they differ quite much on there topology and size.
+
+	(d)
+		I will get just like I optimize First and Second and then Optimize Disagreement. This may suggest that it does't really matter if we do optimize for every intermediate FST but just the last one, if there is not significant overhead. And also, it is because the optimized version should be the same for all FST that accept nothing.
+
+
+

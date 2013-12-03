@@ -31,5 +31,7 @@ make install
 	(d)
 		I will get just like I optimize First and Second and then Optimize Disagreement. This may suggest that it does't really matter if we do optimize for every intermediate FST but just the last one, if there is not significant overhead. And also, it is because the optimized version should be the same for all FST that accept nothing.
 
+	
+
 
 

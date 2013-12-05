@@ -1,6 +1,10 @@
 Zero = "0";
 One = "1";
 Bit = Zero | One;
+OddOnes = (One{2})* One;
 export First = Optimize[Zero Zero* Bit* One One One One?];
 export Second = Optimize[Zero Bit* One One One+];
 export Disagreement = Optimize[(First - Second) | (Second - First)];
+export Triplets = Optimize[Zero* (One{3} One* Zero*)*];
+export NotPillars = Optimize[Bit* - (One{2})*];
+export Oddlets = Optimize[Zero* (OddOnes Zero+)* OddOnes? Zero*];

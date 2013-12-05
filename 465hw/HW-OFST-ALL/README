@@ -31,7 +31,64 @@ make install
 	(d)
 		I will get just like I optimize First and Second and then Optimize Disagreement. This may suggest that it does't really matter if we do optimize for every intermediate FST but just the last one, if there is not significant overhead. And also, it is because the optimized version should be the same for all FST that accept nothing.
 
+3.	
+	See binary.grm
+
+4.
+	(a)
+		a(b*|c+|)a
+	(b)
+		"abca" will have no output.
+		"aba" will have one output ("axa").
+		"aa" will have two output ("aa" and "africa")
+		"acca" will have more than two outputs. 
+
+	(c)
+		It will take strings begin and end with a letter "a" and keep them as they are, within the two "a"s, the string should contain one of the following:
+			i. any number "b" and rewrite them as the same number of "x"
+			ii. one or more "c" and rewrite them as any number of "y"
+			iii. nothing and rewrite the empty string as "fric"
+
+	(d)
+		Yes, and there are 10 states and 16 arcs.
+
+5.	
+	(c)
+		epsilon here should represent no information so I don't think it should be treated as 0. Also, here binary number should exclude those numbers start with multiple "0", who are not valid binary numbers.
+
+6.	
+	(a)
+		i. It complains about unknown symbol Art.
+		In tags.Tags, no Art or Noun FST is defined, so we should change the definition in chunker.grm from Adj to "Adj" and same for all other tags.
+		The fixed version will accept: "AdjNounNoun", "ArtAdjAdjNounNoun", "QuantNounNoun"...
+
+		# TO-DO What does it mean by evidence, the it just accepts.
+
+		ii. It has 13 states and 17 arcs. The FST is not very straight forward, it views the Adj as three letters rather then some component, I guess that will be where we need the user defined symbol table.
+
+	(b)
+		export MakeNmod = CDRewrite["Noun":"Nmod", "", "Noun", SigmaStar, 'sim', 'obl'];
+		Also see chunker.grm
+
+	(c)
+		i. This FST will accept only NP and then transform a NP to be in the Nmod version as in (b).
+
+	   ii. It's "ArtAdjNmodNmodNoun" and Rewrite failed because the latter is not a valid NP.
+
+	  iii. Transform is much smaller than the MakeMod because it will accept much less string.
+
+	   iv. The topology is almost the same except near the end. NP accept one or more "Noun" while in TranformNP, it will have a branch that transform "Noun" to be "Nmod" and then leave the last Noun as it is.
 	
+	(d)
+		They would accept the same language but the output string are quite different, 
+
+
+
+
+
+
+
+
 
 
 

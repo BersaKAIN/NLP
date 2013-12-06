@@ -15,5 +15,22 @@ export TransformNP = Optimize[NP @ MakeNmod];
 export BracketNP = ("" : "<") NP ("" : ">");
 export Brackets1 = Optimize[SigmaStar (BracketNP SigmaStar)*];
 export Brackets2 = CDRewrite[BracketNP, "", "", SigmaStar,'sim','obl'];
-export BracketTransform = Optimize[NP @ Brackets2 @ MakeNmod];
+export BracketTransform = Optimize[Brackets2 @ MakeNmod];
+
+export temp = ("" : "Quant") ("" : "Noun")+ ("" : "Verb");
+export temp1 = Project[temp, 'output'];
+export BracketResult = Optimize[temp @ BracketTransform];
+
+# will optionally replace Noun as Nmod
+
+
+export replace = (SigmaStar ("Noun":"Nmod") SigmaStar)*;
+# to provent insufficient replace
+export filter1 = SigmaStar - (SigmaStar "NounNoun" SigmaStar | SigmaStar "NounNmod" SigmaStar );
+# to prevent over replace
+export filter2 = SigmaStar - (SigmaStar "Nmod" (SigmaStar -  (("Noun" | "Nmod") SigmaStar)));
+export TransformNP2 = Optimize[replace @ filter1 @ filter2];
+
+
+
 

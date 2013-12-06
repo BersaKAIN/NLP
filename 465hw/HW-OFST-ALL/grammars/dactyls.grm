@@ -1,9 +1,21 @@
 import 'byte.grm' as bytelib;
+import 'arpabet.grm' as arpabet;
 Sigma = bytelib.kGraph | bytelib.kSpace;
+arpa = SymbolTable['../symbol_tables/arpabet.sym'];
+arpaSigma = arpabet.Phoneme;
 
-Pronounce = StringFile['cmufull.txt'];
-StressPattern = CDRewrite[(Sigma - bytelib.kDigit) : "", "", "", Sigma*, 'sim', 'obl'];
-Dacytl = ("1" | "2") "0" "0";  
 
-export Results = Optimize[Project[Pronounce @ StressPattern @ (Dacytl*), 'input']];
+# Pronounce = StringFile['../data/cmumini.txt'];
+Pronounce = StringFile['../data/cmumini.txt', byte, arpa];
+
+# CDRewrite requires that the input and output language to use the same alphabet so I am doing some dirty hack here. represent 1 as AA1 and 0 as AA0 because 1 and 0 are not in arpa.
+export StressPattern = CDRewrite[((arpabet.Consonant:"".arpa) | (arpabet.Stressed:"AA1".arpa) | (arpabet.Unstressed:"AA0".arpa))*, "".arpa, "".arpa, arpaSigma*, 'sim', 'obl'];
+
+# transform back to byte mode
+BackToByte = (("".arpa : "") | ("AA1".arpa:"1") | ("AA0".arpa:"0"))*;
+Dacytl = ("1" "0" "0");  
+
+export Results = Optimize[Project[Pronounce @StressPattern @ BackToByte @ (Dacytl*),'input']];
 export ListResults = "" : Results;
+
+

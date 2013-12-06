@@ -1,4 +1,4 @@
-arpasyms = SymbolTable['arpabet.sym'];
+arpasyms = SymbolTable['../symbol_tables/arpabet.sym'];
 
 export Consonant = Optimize[
     "B".arpasyms

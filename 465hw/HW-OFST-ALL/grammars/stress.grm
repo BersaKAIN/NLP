@@ -1,8 +1,51 @@
 import 'byte.grm' as bytelib;   # copy this file from grammars/byte.grm
 Letter = bytelib.kAlpha;        # kAlpha is defined in byte.grm
 Sigma = Letter | "'";           # alphabet also includes stress mark
-Vowel = "a" | "e" | "i" | "o" | "u" | "A" | "E" | "I" | "O" | "U";
+Vowel = "a" | "e" | "i" | "o" | "u" | "A" | "E" | "I" | "O" | "U" | "^";
 Consonant = Letter - Vowel;
 Nucleus = Vowel+;
 
 # YOU WILL FILL IN THE REST
+ESigma = bytelib.kGraph | bytelib.kSpace;
+
+
+BeforeNucleus = (Consonant+ | "[BOS]");
+
+func Intersect[fst1,fst2] {
+	u = fst1 | fst2;
+	u1 = u - (fst1 - fst2);
+	u2 =  u1 - (fst2 - fst1);
+	return u2;
+}
+
+StressedVowel = "'" Vowel+ ;
+
+# The first nuclei should be preceded either by [BOS] or [BOS] and some consonant
+BeforeFirstNucleus = "[BOS]" | "[BOS]" Consonant+;
+
+# The nonfirst nuclei should be preceded by another group of Nucleus Consonant+ combination and before the group, there should be either BeforeFirstNucleus (This is the second Nuclei) or Consonant+ (This is the third and after)
+BeforeNonFirstNucleus = ((BeforeFirstNucleus | Consonant+ ) Nucleus Consonant+);
+
+Before = (BeforeFirstNucleus | BeforeNonFirstNucleus);
+
+After = Nucleus Consonant+ Nucleus;
+
+export Stress1 = CDRewrite[("" : "'"), Before, After, ESigma*, 'ltr', 'obl'];
+export Stress2 = CDRewrite[("" : "'"), "[BOS]" Consonant*, Nucleus Consonant* "[EOS]", ESigma*, 'ltr', 'obl' ];
+
+export Stress = Optimize[Stress1 @ Stress2];
+export test = Invert[Stress];
+
+
+export StressWords = CDRewrite[Stress, " " | "[BOS]", " " | "[EOS]", ESigma*, 'ltr', 'obl'];
+
+Y = "y" | "Y";
+# "^" is for vowel and y is for consonant
+
+export TransformY = CDRewrite[(Y:"^"), "", Consonant | "[EOS]", ESigma*, 'ltr', 'obl'];
+
+
+export Stressy = Optimize[TransformY @ Stress @ Invert[TransformY]];
+
+
+

@@ -80,7 +80,51 @@ make install
 	   iv. The topology is almost the same except near the end. NP accept one or more "Noun" while in TranformNP, it will have a branch that transform "Noun" to be "Nmod" and then leave the last Noun as it is.
 	
 	(d)
-		They would accept the same language but the output string are quite different, 
+		They would accept the same language but the output string are quite different, Bracket2 would have much less number of outputs. That was because Bracket1 has more ways of chunking NP and sigmastar while Bracket2 will search right as much as possible to get the biggest NP.
+
+	(e)
+		See chunker.grm
+
+	(f)
+		We would like to generate a list of sentences and then give it to BracketTransform.
+
+7.
+	(a)
+		See stress.grm
+
+	(b)
+		Input string: ev'apor'ating
+		Output string: ev'aporating
+		Output string: ev'apor'ating
+
+		Input string: 'incomm'unic'ado
+		Output string: 'incommunic'ado
+		Output string: 'incomm'unic'ado
+		Output string: incomm'unicado
+		Output string: 'incommunicado
+		Output string: 'incomm'unicado
+		Output string: incommunicado
+		Output string: incommunic'ado
+		Output string: incomm'unic'ado
+
+	(c)
+		Just set the left context to be either space or [BOS] and right context to be space or [EOS], then within the context we will have the word which we shall apply Stress to.
+
+	(d)
+		The rule is just simply, if the "y" is followed by a vowel, then it is consonant, else if it is the end of the word or the followed by consonant, it is vowel. The reason I chose this rule is that it's very rare that "y" as a consonant appear alone, so it has to lead some vowel. However, a counter example would be "voyage", where "y" is followed by vowel and it is a vowel (at least part of vowel ? or the ji is abbreviated as i?).
+
+8.
+	(a)
+		Lead (verb) and lead (Noun), they have the same ending (ead) but different pronounciation.
+
+	(b)
+		AE  : mouth open wider (like two fingers wide), lips are pulled back (can see my teeth), tongue is close to the bottom and tip of tongue is touch the bottom teeth.
+		AHO : mouth less open (one finger wide), lips are relaxed, tongue is near bottom and does't need much attention on it.
+
+	(c)
+		Results is defining those words with a sequence of decreasing sounds. The level of stress sequence Dacytl = "1"|"2" "0" "0" is such a group where a stressed vowel leads two unstressed ones. And the word should have some number of such Dacytl stress seqence. 
+
+
 
 
 

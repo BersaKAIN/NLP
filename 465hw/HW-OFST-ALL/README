@@ -2,6 +2,8 @@ Natural Language Processing
 
 Finite State Programming
 
+Yiran Zhang yzhan139
+
 How to compile on OS 10.9:
 ./configure --enable-far=yes --enable-pdt=yes --enable-ngram-fsts=yes CXX="clang++ -std=c++11 -stdlib=libstdc++"
 make
@@ -123,6 +125,210 @@ make install
 
 	(c)
 		Results is defining those words with a sequence of decreasing sounds. The level of stress sequence Dacytl = "1"|"2" "0" "0" is such a group where a stressed vowel leads two unstressed ones. And the word should have some number of such Dacytl stress seqence. 
+
+	(d)
+		See the modified version in dactyls.grm
+
+	(e)
+		See rhyme.grm
+
+	(f)
+		Its domain is the words included in cmudict (or cmumini), the range is all possible rhyming ending of the words in the dictionary.
+
+	(g)
+		It's basically return all words that has the same rhyming ending as the input word.
+		WordEnding @ Invert[WordEnding] will first transform a english word (in the dictionary, will omit this hereafter) into its rhyming ending in the form of its pronunciation then transform the rhyming ending to all words that may generate such ending.
+
+		Its input should be byte, then after the WordEnding part, it should be arpa and then byte again.
+
+	(h)
+		It's becoming extremely slow, that is because we are trying to compose two very large FSTs. When we are composing two FSTs, for each output from the first one, we will branch to all possible states in the second one (of course, the states are moving simultaneously), so there can be at most O(NM) states and O(M**2NN**2) arcs ! Which is much greater than before composing.
+
+
+	(i)
+		Use: grmtest rhyme.grm WordEnding,InvWordEnding
+
+		This is because the first FST w is very small, and it would eliminate many states in the WordEnding when composing, so it would greatly increase the speed. 
+
+		There are no rhyme for both words, but quite a lot for adventure:
+		Output string: eurodebenture
+		Output string: rencher
+		Output string: mencher
+		Output string: indenture
+		Output string: debenture
+		Output string: quencher
+		Output string: clencher
+		Output string: adventure
+		Output string: venture
+		Output string: bencher
+		Output string: laventure
+		Output string: denture
+		Output string: trencher
+		Output string: misadventure
+
+	(j)
+
+
+9.
+	(a)
+		i. "001" and "011" are the min weighted string accepted with weight 1.7
+
+		ii. ("001","1011") <weight=1.95> and ("011","1111") <weight=1.95>
+
+	(b)
+		see binary.grm
+
+	(c)
+		i. Let (x,y) = (111000,000000)
+			Input string: 111000
+			Output string: 000000 <cost=4.3>
+			Output string: 000000 <cost=5.3>
+
+		ii. It's just the same as in i., 
+
+		iii. T_out: All the possible output of T
+			 xT_out: All the possible output of x@T
+			 Ty_in: All the acceptable input of T@y
+			 xTy: Will accept only x and output y
+			 exTye: empty string to emptystring
+
+			 The last one would just have two stats and one arc.
+			 The last one (exTye) would generate language x transduce it through T and check if it is in another language y.
+			 Ty_in would accept language that would be transduced to language y
+			 xT_out would accept the possible output of x transduced by T
+
+	(d)
+
+10.
+	(a)
+
+	(b)
+		For ngramrandgen or fstprintstring, the sentences are mostly length 15 - 30, what should be the average of the sentence that our language model has. (the average number of states we are in before we reach the final state.) fstshortestpath has only one output which is a empty sentence with just the period ".". That is probably we never saw this in the training data but this is backed off. Asn since it is the shortest (which will have lowest cost), it is returned s the shortest path.
+
+	(c)
+		It's still a quite a big FST having 30 states and 80 arcs.
+
+	(d)
+		The fisrt two sentences have result like:
+		Input string: Andy cherished the barrels each house made .
+		Output string: Andycherishedthebarrelseachhousemade. <cost=67.4315>
+		Output string: Andycherishedthebarrelseachhousemade. <cost=69.3342>
+		Output string: Andycherishedthebarrelseachhousemade. <cost=79.478>
+		Output string: Andycherishedthebarrelseachhousemade. <cost=81.3807>
+
+		Input string: If only the reporters had been nice .
+		Output string: Ifonlythereportershadbeennice. <cost=49.2649>
+		Output string: Ifonlythereportershadbeennice. <cost=49.5909>
+		Output string: Ifonlythereportershadbeennice. <cost=50.0474>
+
+		these (input, output) are the path in the FST that would accept the (input, output) and within the <> are the costs of the paths.
+		The reason of resulting in different paths is the choice using backoff (no backoff, backoff 1, backoff 2).
+
+	(e)
+		The general idea of the transducer is like this:
+			i. Randomly complete the input string
+			ii. Throw out all such string completion that is illegal (not in the vocab)
+			iii. Transform the string to word in the vocab
+			iv. Give the word to the LM and output weight also
+
+		CompleteWord is the composition of all these four FSTs.
+
+		About the weight of the weight, the current weight is the unigram weight of the word in LM. But what we should be asking is not the probability of the word but rather given the input string, what's the probability that the user want to input the word. 
+
+		So it's really P(word |string). Since we want to compare and get the more likely word, it does't hurt to find argmax_{word} P(word, string) = argmax_{word} P(string | word) P(word). Here I cannot estimate P(string | word), a approximation of the cost would be just the number of letters I added.
+
+	(f)
+
+
+11.
+	(a)
+		See noisy.grm
+		export DelSpaces = CDRewrite[" ":"", "", "", ByteSigmaStar, 'sim', 'obl'];
+
+	(b)
+		See entest-noisy.txt
+
+	(c)
+		See noisy.grm
+	
+	(d)
+		Use grmtest noisy InvDelSpaces,InvSpellText,InvLM,PrintText
+
+		Remark: It turns out here Optimizing is not a wise choice.
+
+		The first sentence got passed with all result same.
+		The second and the fourth failed to rewrite.
+		The third one is the most interesting one.
+
+		"Thereportersaid" can be either "The reporter said" or "The reporters aid".
+		"Everyone" can be either "Every one" or "Everyone".
+		"Iskilled" can be either "Is killed" or "I skilled".
+
+		It seems "Is skilled" is more favorable.
+		"Everyone" has higher probability simply because has less states to go.
+		"Reporters aid" seems to be better (at least it is in the first place), this is quite out of my expectation. Becanse usually, reporters should say more and aid less. It might be the problem of the entrain.txt.
+
+	(e)
+		i. w1 represents the cost of having each additional character. w2 represents the base cost of each word (whenever you generate a OOV word, you will pay w2 cost).
+
+		ii.
+
+		iii. It should be 1. Just to be a valid probability.
+
+		iv. decrease w1 will make the random word to be longer.
+
+		v. The probablity would increase, the decoder would want to see more new words, so its very likely that we are tearing a good word apart into two OOV word, so it will decrease the performance of the decoder.
+
+		vi. We can assign some ngram model to the generating FSA, which will give more likely words.
+
+	(f)
+		Results can be good as we want, but also, it can be very bad in a way that it's tearing everything into <unk>.
+		We may have "<unk> you ." which is good.
+		We may also have "<unk> an <unk> you ." which is extracting the two common words inside "Thankyou" and treat them as "<unk>".
+
+	(g)
+		Use: grmfilter -s noisy.grm InvDelSpaces,InvSpellText,InvLM < entest-noisy.txt > entest-recover.txt
+		(Please do not add PrintText !!)
+
+		It sometimes is creating a lot of unkown words out of nothing. So it might be wise to increase the weight of w2 so that OOV word are less likely and can appear only when necessary.
+
+	(h)
+		Yes, the average distance isn't too high as in the recover file we don't see too much <unk>.
+
+12.
+	(a)
+		So when we are decoding, we should care about how many spaces were there, on the noisy channel side we should have different weights about upon seeing x spaces, how many will be deleted. When decoding, the weight should be reveal such phenominon.
+
+	(b)
+		We will try to randomly add the suffix back and see if the resulting word is a valid word.
+
+	(c)
+		We will randomly edited the word. On decoding, we should randomly edit the word again and see all possible outcome that is in the dictionary. The suggestions should be ordered by their edit distance from the typo one to the correct word.
+
+		A improvement should be some errors are more likely so we should assign some edit with higher probability.
+
+	(d)
+		In this decoder, every number will have uniform probability of being transduced to the three associated letters. 
+
+	(e)
+		SO the typo on the telephone will result the typo in the english sentences resulted. The decoding part will first try to edit the number sequence and transform them back to english. The choice of the word will be the editdistance of the numbers plus the cost of transform them back to english.
+
+	(f)
+		Composing (a) and (c) will first try to split words or inserting spaces and then run the typo decoder, the weight is summing over the cost of the two steps.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

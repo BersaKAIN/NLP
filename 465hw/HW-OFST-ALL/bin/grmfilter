@@ -73,7 +73,7 @@ while read input_line; do
     #work through the list of comma-separated rules
     IFS=',' read -ra RULES <<< "$2"
     for fstname in "${RULES[@]}"; do
-	farextract --filename_prefix="/tmp/$$." --filename_suffix=".fst" --begin_key=$fstname --end_key=$fstname $name.far
+	farextract --filename_prefix="/tmp/$$." --filename_suffix=".fst" --keys=$fstname --keys=$fstname $name.far
 	FSTFILE=/tmp/$$.${fstname}.fst
 	if [ ! -r $FSTFILE ]; then 
 	    echo "Error: Failed to extract $fstname from $name.far (probably was not exported by $name.grm)"

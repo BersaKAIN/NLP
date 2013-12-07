@@ -4,9 +4,37 @@ ByteSigmaStar = Optimize[ByteSigma*];
 
 export LM = LoadFst['entrain.fst'];  # load trigram language model (.fst)
 vocab = SymbolTable['entrain.sym'];  # load model's symbol table (.sym)
-Spell = StringFile['entrain.alpha', vocab, byte];
+# old spell
+OldSpell = Optimize[StringFile['entrain.alpha', vocab, byte]];
+RandomChar = bytelib.kGraph <4.54>;
+RandomWord = Optimize[(RandomChar (RandomChar <0.1>)* ) <2.3>];
+SpellOOV = "<unk>".vocab : RandomWord;
+Spell = Optimize[StringFile['entrain.alpha', vocab, byte]] | SpellOOV;
 
 # YOU WILL FILL IN THE REST
+
+# Transduce byte to vocab
+export FormWord = Optimize[StringFile['entrain.alpha', byte, vocab]];
+
+# Randomly complete the user input letters
+export RandomComplete = CDRewrite["":ByteSigma*, "", "[EOS]", ByteSigmaStar, 'sim', 'obl'];
+
+# FSA that accept all possible spells.
+export PossibleSpelling = Project[Spell, 'output'];
+
+# export CompleteWordWithoutWeight = CompleteSpell @ FormWord;
+# only thing left is the weighting, should we just use the unigram weight ?
+export CompleteWord = RandomComplete @ PossibleSpelling @ FormWord @ LM;
+
+export DelSpaces = CDRewrite[" ":"", "", "", ByteSigmaStar, 'sim', 'obl'];
+export SpellText = (Spell ("".vocab : " ".byte))*;
+export PrintText = (OldSpell ("".vocab : " ".byte) | ("<unk>".vocab:"<unk>") ("".vocab : " ".byte))*;
+
+# export Generate = Optimize[LM @ SpellText @ DelSpaces];
+export InvLM = Invert[LM]; 
+export InvSpellText = Optimize[Invert[SpellText]];
+export InvDelSpaces = Optimize[Invert[DelSpaces]];
+
 
 
 

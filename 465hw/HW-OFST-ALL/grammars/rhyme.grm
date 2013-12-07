@@ -1,20 +1,13 @@
 import 'byte.grm' as bytelib;
 import 'arpabet.grm' as arpabet;
+arpa = SymbolTable['../symbol_tables/arpabet.sym'];
 
-arpasyms = SymbolTable['symbol_tables/arpabet.sym'];
+Pronounce = StringFile['../data/cmufull.txt', byte, arpa];
 
-Arpa = arpabet.Arpa;
-Accent = arpabet.Accent;
+export Ending = CDRewrite[arpabet.Phoneme:"".arpa, "".arpa, arpabet.Phoneme* arpabet.Stressed, arpabet.Phoneme*, 'ltr', 'obl'];
 
-export cmudict = StringFile['data/cmufull.txt', byte, arpasyms];
-cmuwords = Project[cmudict,'input'];
+export WordEnding = Optimize[Pronounce @ Ending];
+export InvWordEnding = Optimize[Invert[WordEnding]];
 
+# export SameEndingWord = Optimize[WordEnding @ Invert[WordEnding]];
 
-initSplit = ((Arpa : "<epsilon>".arpasyms)*);
-export stripPrefix = Optimize[ initSplit Accent (Arpa - Accent)*];
-
-r1 = Optimize[ cmudict @ stripPrefix ];
-export rhyme = Optimize[ r1 ];
-
-i1 = Optimize[Invert[ r1 ] ];
-export rhymeInvert = Optimize[ i1 ];
